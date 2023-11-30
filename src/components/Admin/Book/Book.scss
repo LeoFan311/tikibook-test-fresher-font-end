@@ -1,0 +1,40 @@
+.modal-add-book-children {
+    .add-book-from-form {
+        label {
+            margin-bottom: -5px;
+        }
+        .flex_50 {
+            display: flex;
+            justify-content: space-between;
+            > div {
+                width: 48.75%;
+            }
+            margin-bottom: 5px;
+        }
+        .flex_25 {
+            display: flex;
+            justify-content: space-between;
+            > div {
+                width: 23.125%;
+            }
+
+            .book_quantity {
+                .ant-input-number {
+                    width: 100%;
+                }
+            }
+
+            .book_sold_number {
+                .ant-input-number {
+                    width: 100%;
+                }
+            }
+        }
+
+        .upload-thumbnail {
+            label {
+                padding-left: 1px;
+            }
+        }
+    }
+}

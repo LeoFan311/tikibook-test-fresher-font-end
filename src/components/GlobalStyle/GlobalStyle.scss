@@ -1,0 +1,119 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.modal-create-user-from {
+    margin-top: 30px;
+}
+
+.layout-app {
+    background-color: #f1f1f1;
+}
+
+.flex {
+    display: flex;
+}
+
+.items-center {
+    align-items: center;
+}
+.flex-column {
+    flex-direction: column;
+}
+
+img {
+    border: 0;
+}
+
+.carts-popover-title {
+    // padding-left: 12px;
+    color: rgba(0, 0, 0, 0.26);
+    text-transform: capitalize;
+    margin: 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: unset;
+}
+
+.carts-popover {
+    margin-left: -12px;
+    margin-right: -12px;
+    .PJ3vNU:hover {
+        background-color: #eee;
+        cursor: pointer;
+    }
+
+    .PJ3vNU {
+        width: 100%;
+        display: flex;
+        padding: 0.625rem;
+        box-sizing: border-box;
+        position: relative;
+        padding-left: 12px;
+        padding-right: 12px;
+
+        .n7CR4f {
+            width: 2.5rem;
+            height: 2.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.09);
+            flex-shrink: 0;
+            object-fit: cover;
+        }
+
+        .J0YaJQ {
+            flex: 1;
+            margin-left: 0.625rem;
+            overflow: hidden;
+        }
+
+        .Dn8J7b {
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .Dn8J7b,
+        .YZSHv0 {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .center,
+        .v-center {
+            display: flex;
+            align-items: center;
+        }
+
+        .T382iK {
+            flex-shrink: 0;
+            margin-left: 2.5rem;
+            align-items: baseline;
+            color: #ee4d2d;
+        }
+    }
+
+    .center,
+    .v-center {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.views-carts-btn {
+    // margin-right: 12px;
+    background-color: #ee4d2d;
+    border: none;
+    color: #fff;
+}
+
+.views-carts-btn:hover {
+    color: #fff !important;
+    background-color: #ee4d2d;
+    opacity: 0.8;
+    cursor: pointer;
+}

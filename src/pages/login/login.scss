@@ -1,0 +1,16 @@
+.login_page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .login_form {
+        margin-top: 24px;
+        width: 400px;
+
+        .heading {
+            text-align: center;
+            opacity: 0.8;
+            margin-bottom: 24px;
+        }
+    }
+}

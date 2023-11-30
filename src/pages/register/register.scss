@@ -1,0 +1,15 @@
+.register_page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .register_form {
+        margin-top: 24px;
+        width: 400px;
+
+        .heading {
+            text-align: center;
+            opacity: 0.8;
+        }
+    }
+}

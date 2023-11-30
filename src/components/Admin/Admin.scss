@@ -1,0 +1,42 @@
+.admin {
+    .admin-label {
+        color: white;
+        text-align: center;
+        padding: 15px;
+        margin-bottom: 38px;
+    }
+
+    .ant-layout-sider-children {
+        min-height: 100vh;
+    }
+
+    .label {
+        margin-bottom: 24px;
+    }
+
+    header {
+        background: rgb(231 230 230) !important;
+        border-bottom: 1px solid #bdb7b740;
+        display: flex;
+        justify-content: space-between;
+        .user {
+            margin-right: 40px;
+        }
+    }
+
+    main {
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        padding: 10px 0 !important;
+
+        background-color: #e6e6e6 !important;
+
+        .label {
+            padding-left: 16px;
+        }
+    }
+}
+
+.admin > section > section {
+    background-color: #e6e6e6 !important;
+}

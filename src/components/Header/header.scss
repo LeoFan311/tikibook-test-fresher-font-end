@@ -1,0 +1,130 @@
+.home-header {
+    background-color: #fff;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    margin-bottom: 15px;
+    .content-wrapper {
+        display: flex;
+        justify-content: space-between;
+        width: 1250px;
+        max-width: calc(100% - 32px);
+
+        .logo {
+            display: flex;
+            align-items: center;
+            svg {
+                font-size: 24px;
+                margin-right: 5px;
+                color: rgb(10, 104, 255);
+            }
+            .logo-name {
+                color: rgb(10, 104, 255);
+                font-size: 16px;
+                font-weight: 500;
+            }
+        }
+
+        .search-wrapper {
+            width: 675px;
+            .search {
+                position: relative;
+                height: 40px;
+                width: 100%;
+                display: flex;
+                position: relative;
+                border: 1px solid rgb(221, 221, 227);
+                border-radius: 8px;
+                -webkit-box-align: center;
+                align-items: center;
+                flex: 1 1;
+
+                .search-icon {
+                    margin-top: 4px;
+                    margin-left: 20px;
+                    width: 20px;
+                    height: 20px;
+
+                    svg {
+                        color: rgb(172, 172, 177);
+                    }
+                }
+
+                input {
+                    height: 22px;
+                    outline: none;
+                    border: none;
+                    border-right: 1px solid rgba(128, 128, 128, 0.15);
+                    padding: 0 8px;
+                    width: calc(100% - 40px - 99px);
+                }
+
+                .search-button {
+                    width: 100px;
+                    padding: 0 5px;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    height: 38px;
+                    border: 1px solid rgba(10, 104, 255, 0);
+                    line-height: 40px;
+                    border-top-right-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                    color: rgb(10, 104, 255);
+                    text-align: center;
+                }
+
+                .search-button:hover {
+                    background-color: rgba(10, 104, 255, 0.2);
+                    cursor: pointer;
+                    // border: 1px solid rgba(10, 104, 255, 0.2);
+                }
+            }
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+            svg {
+                color: rgb(128, 128, 137);
+                font-size: 21px;
+                margin-right: 6px;
+            }
+
+            span {
+                color: rgb(128, 128, 137);
+                font-size: 16px;
+            }
+
+            .login {
+                a {
+                    text-decoration: none;
+                    color: rgb(128, 128, 137);
+                }
+            }
+
+            .login:hover a {
+                cursor: pointer;
+                opacity: 0.8;
+            }
+        }
+
+        .cart {
+            display: flex;
+            align-items: center;
+            svg {
+                color: rgb(128, 128, 137);
+                font-size: 24px;
+            }
+        }
+        .header-cart-icon:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.home-header .content-wrapper .cart svg {
+    color: rgb(10, 104, 255);
+    font-size: 24px;
+}
