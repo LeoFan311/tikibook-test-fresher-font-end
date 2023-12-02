@@ -1,19 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import './header.scss';
-import { FaSearch, FaReact, FaUser, FaCartPlus, FaCartArrowDown } from 'react-icons/fa';
-import { Avatar, Badge, Button, Dropdown, Popconfirm, Popover, Space } from 'antd';
-import { DownOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { FaSearch, FaReact, FaUser } from 'react-icons/fa';
+import { Avatar, Dropdown, Space } from 'antd';
 import { doLogoutAction } from '../../redux/account/accountSlice';
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useState, memo } from 'react';
+import { memo } from 'react';
 import { callLogout } from '../../services/api';
-import { convertSlug } from '../LanguageHandle/convertSlug';
 import HeaderCart from './headerCart';
 
 const Header = () => {
     console.log('Check render header');
-    const navigate = useNavigate();
-
     const dispatch = useDispatch();
     const accountRedux = useSelector((state) => {
         if (state.account.isAuthenticated) {
@@ -22,8 +18,6 @@ const Header = () => {
             return {};
         }
     });
-
-    const carts = useSelector((state) => state.order.carts);
 
     const handleLogout = async () => {
         const res = await callLogout();
@@ -37,6 +31,14 @@ const Header = () => {
             {
                 label: <label style={{ cursor: 'pointer' }}>Quản lý tài khoản</label>,
                 key: 'user',
+            },
+            {
+                label: (
+                    <Link to="/history" style={{ cursor: 'pointer' }}>
+                        Lịch sử mua hàng
+                    </Link>
+                ),
+                key: 'history',
             },
             {
                 label: (
@@ -78,7 +80,7 @@ const Header = () => {
                 </div>
 
                 <div className="user">
-                    <Dropdown menu={menuProps} trigger={['click']}>
+                    <Dropdown menu={menuProps} trigger={['hover']}>
                         {accountRedux.isAuthenticated ? (
                             <Space>
                                 <Avatar src={urlAvatar} />

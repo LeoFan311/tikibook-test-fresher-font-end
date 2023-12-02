@@ -51,7 +51,6 @@ const UserModalEdit = ({ openModal, toggleModal, fetchUser, data }) => {
                 onCancel={() => {
                     toggleModal();
                     form.setFieldsValue({});
-                    console.log('>>> Check UserModalEdit data onCancel: ', data);
                 }}
                 onOk={handleOk}
                 confirmLoading={confirmLoading}

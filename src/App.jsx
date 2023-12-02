@@ -14,6 +14,7 @@ import AdminLayout from './components/Admin/AdminLayout';
 import AdminHomePage from './components/Admin/AdminHomePage';
 import BookDetailPage from './components/BookDetailPage';
 import CartPage from './components/Cart';
+import OrderHistory from './components/History';
 
 const Layout = () => {
     return (
@@ -66,6 +67,10 @@ export default function App() {
                 {
                     path: 'cart',
                     element: <CartPage />,
+                },
+                {
+                    path: 'history',
+                    element: <OrderHistory />,
                 },
             ],
         },
