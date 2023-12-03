@@ -12,7 +12,6 @@ const LoginPage = () => {
     const onFinish = async (values) => {
         const { username, password } = values;
         const res = await callLogin(username, password);
-        console.log('>>> Login res: ', res);
         if (res?.data?.user) {
             localStorage.setItem('access_token', res.data.access_token);
             dispatch(doLoginAction(res.data.user));

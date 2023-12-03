@@ -9,7 +9,6 @@ const HeaderCart = () => {
     const navigate = useNavigate();
     const [renderPopover, setRenderPopover] = useState(true);
     const [cartProducts, SetCartProducts] = useState([]);
-    console.log('Check cartProducts; ', cartProducts);
     const carts = useSelector((state) => state.order.carts);
 
     useEffect(() => {
@@ -29,7 +28,11 @@ const HeaderCart = () => {
             {renderPopover ? (
                 <Popover
                     placement="bottomLeft"
-                    title={() => <h3 className="carts-popover-title">Sản phẩm mới thêm</h3>}
+                    title={() => (
+                        <h3 className="carts-popover-title">
+                            {cartProducts.length > 0 ? 'Sản phẩm mới thêm' : 'Không có sản phẩm nào'}
+                        </h3>
+                    )}
                     content={
                         <>
                             {cartProducts.length > 0 &&

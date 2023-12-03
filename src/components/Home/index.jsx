@@ -283,7 +283,16 @@ const HomePage = () => {
                                     current={current}
                                     total={total}
                                     pageSize={pageSize}
+                                    showSizeChanger={true}
                                     responsive
+                                    showTotal={(total, range) => {
+                                        return (
+                                            <div style={{ marginLeft: '-350px' }}>
+                                                {/* Hàng {range[0]} - {range[1]} trên tổng số {total} hàng */}
+                                                Tổng số lượng: {total}
+                                            </div>
+                                        );
+                                    }}
                                     onChange={(p, s) => handleOnchangePage({ current: p, pageSize: s })}
                                 />
                             </Row>

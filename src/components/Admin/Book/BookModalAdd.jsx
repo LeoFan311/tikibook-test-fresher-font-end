@@ -78,18 +78,20 @@ const BookModalAdd = ({ openModal, closeModal, fetchBook }) => {
     };
 
     const customUploadFileThumbnail = async ({ file, onSuccess, onError }) => {
-        const res = await callUploadBookImg(file);
-        if (res && res.data) {
-            setDataThumbnail([
-                {
-                    name: res.data.fileUploaded,
-                    uid: file.uid,
-                },
-            ]);
-            onSuccess('ok');
-        } else {
-            onError('Đã có lỗi xảy ra khi upload file');
-        }
+        // const res = await callUploadBookImg(file);
+        // if (res && res.data) {
+        //     setDataThumbnail([
+        //         {
+        //             name: res.data.fileUploaded,
+        //             uid: file.uid,
+        //         },
+        //     ]);
+        //     onSuccess('ok');
+        // } else {
+        //     onError('Đã có lỗi xảy ra khi upload file');
+        // }
+
+        onSuccess('ok');
     };
 
     const customUploadFileSlider = async ({ file, onSuccess, onError }) => {
@@ -128,10 +130,6 @@ const BookModalAdd = ({ openModal, closeModal, fetchBook }) => {
     };
 
     const onFinish = async (values) => {
-        // console.log('>>> check values: ', values);
-        // console.log('>>> check data thumbnail: ', dataThumbnail);
-        // console.log('>>> check data slider: ', dataSlider);
-
         if (dataThumbnail.length === 0) {
             notification.error({
                 message: 'Loi validate',

@@ -1,15 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
 import './header.scss';
 import { FaSearch, FaReact, FaUser } from 'react-icons/fa';
-import { Avatar, Dropdown, Space } from 'antd';
+import { Avatar, Dropdown, Modal, Space, Tabs } from 'antd';
 import { doLogoutAction } from '../../redux/account/accountSlice';
 import { Link, useNavigate } from 'react-router-dom';
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { callLogout } from '../../services/api';
 import HeaderCart from './headerCart';
+import AccountManage from '../AccountManage';
 
 const Header = () => {
-    console.log('Check render header');
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const dispatch = useDispatch();
     const accountRedux = useSelector((state) => {
         if (state.account.isAuthenticated) {
@@ -29,10 +30,6 @@ const Header = () => {
     let menuProps = {
         items: [
             {
-                label: <label style={{ cursor: 'pointer' }}>Quản lý tài khoản</label>,
-                key: 'user',
-            },
-            {
                 label: (
                     <Link to="/history" style={{ cursor: 'pointer' }}>
                         Lịch sử mua hàng
@@ -51,12 +48,24 @@ const Header = () => {
         ],
     };
 
+    if (accountRedux.isAuthenticated) {
+        menuProps.items.unshift({
+            label: (
+                <label style={{ cursor: 'pointer' }} onClick={() => setIsModalOpen(true)}>
+                    Quản lý tài khoản
+                </label>
+            ),
+            key: 'user',
+        });
+    }
+
     if (accountRedux?.user?.role === 'ADMIN') {
         menuProps.items.unshift({
             label: <Link to="/admin">Trang quản trị</Link>,
             key: 'admin',
         });
     }
+
     const urlAvatar = `${import.meta.env.VITE_BACKEND_URL}/images/avatar/${accountRedux.user?.avatar}`;
 
     return (
@@ -98,6 +107,7 @@ const Header = () => {
                 </div>
                 <HeaderCart />
             </div>
+            {<AccountManage isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />}
         </div>
     );
 };

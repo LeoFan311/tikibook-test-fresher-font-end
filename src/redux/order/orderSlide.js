@@ -11,10 +11,7 @@ export const orderSlice = createSlice({
     initialState,
     reducers: {
         doAddBookAction: (state, action) => {
-            // console.log("check action; ", action.payload)
-            // state.carts.map((obj) => console.log('carts action.payload: ',  { ...obj }));
             const isExistIndex = state.carts.findIndex((product) => product._id === action.payload._id);
-            console.log('>>> Check isExistIndex: ', isExistIndex);
             if (isExistIndex > -1) {
                 state.carts[isExistIndex].quantity = state.carts[isExistIndex].quantity + action.payload.quantity;
             } else {
