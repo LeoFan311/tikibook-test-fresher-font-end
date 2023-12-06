@@ -1,0 +1,52 @@
+.user-table {
+    background-color: #e6e6e6;
+
+    .table-filter {
+        background-color: #e6e6e6;
+        box-shadow: 0 0 20px 5px #d1cfcf;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        .search-input {
+            display: flex;
+            padding: 20px 20px 0 20px;
+            justify-content: space-between;
+
+            > div {
+                width: 30%;
+            }
+            input {
+                width: 100%;
+            }
+        }
+
+        .search-button {
+            width: 100%;
+            padding-right: 25px;
+            display: flex;
+            justify-content: flex-end;
+
+            button {
+                margin-left: 15px;
+            }
+        }
+    }
+
+    .ant-table-title {
+        // background-color: rgb(231 231 231);
+        border-top-right-radius: 5px;
+    }
+
+    .table-header {
+        display: flex;
+        justify-content: space-between;
+
+        .header-action {
+            display: flex;
+            gap: 15px;
+        }
+    }
+
+    .user-table-action {
+        width: 70px;
+    }
+}

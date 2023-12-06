@@ -42,6 +42,7 @@ export const callBulkCreateUser = (data) => {
 };
 
 export const callUpdateUser = (_id, fullName, phone) => {
+    console.log('Check callUpdateUser res: ', _id, fullName, phone);
     return axios.put('/api/v1/user', { _id, fullName, phone });
 };
 
@@ -63,6 +64,14 @@ export const callDeleteUser = (userId) => {
 
 export const callFetchListBook = (query) => {
     return axios.get(`/api/v1/book?${query}`);
+};
+
+export const callFetchListOrder = (query) => {
+    return axios.get(`/api/v1/order?${query}`);
+};
+
+export const callFetchDashboard = (query) => {
+    return axios.get(`/api/v1/database/dashboard`);
 };
 
 export const callUploadBookImg = (fileImg) => {

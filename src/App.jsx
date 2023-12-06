@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createBrowserRouter, RouterProvider, Outlet, useNavigate } from 'react-router-dom';
 import LoginPage from './pages/login';
 import Footer from './components/Footer';
@@ -9,53 +9,76 @@ import Header from './components/Header';
 import ContactPage from './components/Contact';
 import { callFetchAccount } from './services/api';
 import { doGetAccountAction } from './redux/account/accountSlice';
-import ProtectedRoute from './components/ProtectedRound';
 import AdminLayout from './components/Admin/AdminLayout';
 import AdminHomePage from './components/Admin/AdminHomePage';
 import BookDetailPage from './components/BookDetailPage';
 import CartPage from './components/Cart';
 import OrderHistory from './components/History';
+import NotFound from './components/NotFound';
+import Loading from './components/Loading';
+import { Button, Result } from 'antd';
+import AdminProtectedRoute from './components/Admin/AdminProtectedRoute';
 
 const Layout = () => {
+    const navigate = useNavigate();
+    const accountRedux = useSelector((state) => state.account);
+    const checkRole = accountRedux.user.role;
+    const isCartRoute = window.location.pathname.startsWith('/cart');
+    const isHistoryRoute = window.location.pathname.startsWith('/history');
     return (
         <div className="layout-app">
-            <Header />
-            <Outlet />
-            <Footer />
+            {(isCartRoute || isHistoryRoute) && checkRole !== 'ADMIN' && checkRole !== 'USER' ? (
+                <Result
+                    status="403"
+                    title="403"
+                    subTitle="Sorry, you are not permitted, you need to login to access this page."
+                    style={{ minHeight: '100vh', paddingTop: '50px' }}
+                    extra={[
+                        <Button type="primary" onClick={() => navigate('/')}>
+                            Back Home
+                        </Button>,
+                        <Button type="primary" onClick={() => navigate('/login')}>
+                            Login
+                        </Button>,
+                    ]}
+                />
+            ) : (
+                <>
+                    <Header />
+                    <Outlet />
+                    <Footer />
+                </>
+            )}
         </div>
     );
 };
 
 export default function App() {
     const dispatch = useDispatch();
-    const isAdmin = useSelector((state) => {
-        // const isAdminRoute = window.location.pathname.startsWith('/admin');
-        if (state.account.user.role === 'ADMIN') {
-            return true;
-        } else {
-            return false;
-        }
-    });
+    const [isFetching, setIsFetching] = useState(true);
 
-    const getAccount = async () => {
+    const fetchAccount = async () => {
         if (window.location.pathname === '/login') return;
         const res = await callFetchAccount();
         if (res && res.data) {
             dispatch(doGetAccountAction(res.data.user));
         }
     };
-
     useEffect(() => {
-        getAccount();
+        fetchAccount();
+        setTimeout(() => {
+            setIsFetching(false);
+        }, [1000]);
     }, []);
 
     const router = createBrowserRouter([
         {
             path: '/',
             element: <Layout />,
-            errorElement: <div>404 not found</div>,
+            errorElement: <NotFound />,
             children: [
                 { index: true, element: <HomePage /> },
+
                 {
                     path: 'contact',
                     element: <ContactPage />,
@@ -76,41 +99,36 @@ export default function App() {
         },
         {
             path: '/admin',
-            element: <AdminLayout />,
-            errorElement: <div>404 not found</div>,
+            element: isFetching ? (
+                <Loading />
+            ) : (
+                <AdminProtectedRoute>
+                    <AdminLayout />
+                </AdminProtectedRoute>
+            ),
+
+            errorElement: <NotFound />,
             children: [
                 {
                     index: true,
-                    element: (
-                        <ProtectedRoute isAuthenticated={isAdmin}>
-                            <AdminHomePage />
-                        </ProtectedRoute>
-                    ),
+                    element: <AdminHomePage />,
                 },
                 {
                     path: 'users',
-                    element: (
-                        <ProtectedRoute isAuthenticated={isAdmin}>
-                            <AdminHomePage />
-                        </ProtectedRoute>
-                    ),
+                    element: <AdminHomePage />,
                 },
 
                 {
                     path: 'manage-user',
-                    element: (
-                        <ProtectedRoute isAuthenticated={isAdmin}>
-                            <AdminHomePage />
-                        </ProtectedRoute>
-                    ),
+                    element: <AdminHomePage />,
                 },
                 {
                     path: 'book',
-                    element: (
-                        <ProtectedRoute isAuthenticated={isAdmin}>
-                            <AdminHomePage />
-                        </ProtectedRoute>
-                    ),
+                    element: <AdminHomePage />,
+                },
+                {
+                    path: 'order',
+                    element: <AdminHomePage />,
                 },
             ],
         },

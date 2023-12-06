@@ -1,18 +1,15 @@
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, Navigate, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-const ProtectedRoute = (props) => {
-    const navigate = useNavigate();
-    const isAuthenticated = props.isAuthenticated;
-
+const AdminProtectedRoute = (props) => {
+    const accountRedux = useSelector((state) => state.account);
+    const checkRole = accountRedux.user.role;
+    const isAdminRoute = window.location.pathname.startsWith('/admin');
     return (
         <>
-            {isAuthenticated ? (
+            {isAdminRoute && checkRole === 'ADMIN' ? (
                 <>{props.children}</>
             ) : (
-                // navigate("/login")
-                // <Navigate to="/login" />
                 <div style={{ padding: '10px', textAlign: 'center', height: '500px' }}>
                     <p style={{ marginTop: '150px', marginBottom: '10px' }}>Vui lòng đăng nhập tài khoản Admin</p>
                     <Link to="/login" style={{ textDecoration: 'none' }}>
@@ -24,4 +21,4 @@ const ProtectedRoute = (props) => {
     );
 };
 
-export default ProtectedRoute;
+export default AdminProtectedRoute;

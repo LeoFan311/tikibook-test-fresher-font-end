@@ -17,7 +17,16 @@ const columns = [
     {
         title: 'Tổng số tiền',
         dataIndex: 'totalPrice',
-        sorter: true,
+        render: (text, record, index) => {
+            return (
+                <div>
+                    {new Intl.NumberFormat('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND',
+                    }).format(record.totalPrice)}
+                </div>
+            );
+        },
     },
     {
         title: 'Trạng thái',

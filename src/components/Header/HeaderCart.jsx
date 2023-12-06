@@ -10,6 +10,8 @@ const HeaderCart = () => {
     const [renderPopover, setRenderPopover] = useState(true);
     const [cartProducts, SetCartProducts] = useState([]);
     const carts = useSelector((state) => state.order.carts);
+    const accountRedux = useSelector((state) => state.account);
+    const accountRole = accountRedux.user.role;
 
     useEffect(() => {
         SetCartProducts(carts);
@@ -25,7 +27,7 @@ const HeaderCart = () => {
     };
     return (
         <div className="cart" style={{ marginRight: '24px' }}>
-            {renderPopover ? (
+            {renderPopover && (accountRole === 'ADMIN' || accountRole === 'USER') ? (
                 <Popover
                     placement="bottomLeft"
                     title={() => (

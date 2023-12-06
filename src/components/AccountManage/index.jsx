@@ -36,8 +36,6 @@ const AccountManage = (props) => {
     const [avatarUrl, setAvatarUrl] = useState('');
     const [userAvatar, setUserAvatar] = useState('');
 
-    console.log('Check userAvatar: ', userAvatar);
-
     let accountRedux = useSelector((state) => {
         if (state.account.isAuthenticated) {
             return state.account;
@@ -45,8 +43,6 @@ const AccountManage = (props) => {
             return {};
         }
     });
-
-    console.log('Check accountRedux: ', accountRedux);
 
     const urlAvatarRedux = accountRedux.isAuthenticated
         ? `${import.meta.env.VITE_BACKEND_URL}/images/avatar/${accountRedux.user?.avatar}`

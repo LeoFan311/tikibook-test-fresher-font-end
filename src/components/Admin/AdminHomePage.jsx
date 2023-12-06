@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     AppstoreOutlined,
     DollarOutlined,
@@ -8,19 +8,42 @@ import {
     TeamOutlined,
     UserOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, Button, theme } from 'antd';
+import { Layout, Menu, Button, theme, Space, Avatar } from 'antd';
 const { Header, Sider, Content } = Layout;
 import './Admin.scss';
 import { Link, Routes, Route } from 'react-router-dom';
 import UserTable from './User/UserTable';
 import BookTable from './Book/BookTable';
+import OrderTable from './Order';
+import BookDetailPage from '../BookDetailPage';
+import Dashboard from './Dashboard';
+import { useSelector } from 'react-redux';
 
 const AdminHomePage = () => {
     const [collapsed, setCollapsed] = useState(false);
+    const [activeMenu, setActiveMenu] = useState(''); //dashboard
     const {
         token: { colorBgContainer },
     } = theme.useToken();
 
+    const pathName = window.location.pathname;
+
+    useEffect(() => {
+        if (pathName === '/admin') {
+            setActiveMenu('dashboard');
+        }
+        if (pathName.includes('/users')) {
+            setActiveMenu('users');
+        }
+        if (pathName.includes('/book')) {
+            setActiveMenu('book');
+        }
+        if (pathName.includes('/order')) {
+            setActiveMenu('order');
+        }
+    }, [pathName]);
+    const accountRedux = useSelector((state) => state.account);
+    const urlAvatar = `${import.meta.env.VITE_BACKEND_URL}/images/avatar/${accountRedux.user?.avatar}`;
     return (
         <div className="admin">
             <Layout>
@@ -29,39 +52,39 @@ const AdminHomePage = () => {
                     <Menu
                         theme="dark"
                         mode="inline"
-                        defaultSelectedKeys={['1']}
+                        selectedKeys={[activeMenu]}
                         items={[
                             {
-                                key: '1',
+                                key: 'dashboard',
                                 icon: <AppstoreOutlined />,
                                 label: <Link to="/admin">Dashboard</Link>,
                             },
                             {
-                                key: '2',
+                                key: 'users',
                                 icon: <UserOutlined />,
-                                children: [
-                                    {
-                                        label: <Link to="/admin/users">CRUD</Link>,
-                                        key: 'crud',
-                                        icon: <TeamOutlined />,
-                                    },
-                                    {
-                                        label: 'Files1',
-                                        key: 'file1',
-                                        icon: <TeamOutlined />,
-                                    },
-                                ],
-                                label: 'Manage User',
+                                label: <Link to="/admin/users">Manage User</Link>,
+                                // children: [
+                                //     {
+                                //         label: <Link to="/admin/users">CRUD</Link>,
+                                //         key: 'crud',
+                                //         icon: <TeamOutlined />,
+                                //     },
+                                //     {
+                                //         label: 'Files1',
+                                //         key: 'file1',
+                                //         icon: <TeamOutlined />,
+                                //     },
+                                // ],
                             },
                             {
-                                key: '3',
+                                key: 'book',
                                 icon: <ReadOutlined />,
                                 label: <Link to="/admin/book">Manage Books</Link>,
                             },
                             {
-                                key: '4',
+                                key: 'order',
                                 icon: <DollarOutlined />,
-                                label: 'Manage Orders',
+                                label: <Link to="/admin/order">Manage Orders</Link>,
                             },
                         ]}
                     />
@@ -73,17 +96,30 @@ const AdminHomePage = () => {
                             background: colorBgContainer,
                         }}
                     >
-                        <Button
-                            type="text"
-                            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                            onClick={() => setCollapsed(!collapsed)}
-                            style={{
-                                fontSize: '16px',
-                                width: 64,
-                                height: 64,
-                            }}
-                        />
-                        <div className="user">Admin Name and Action</div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                            <Button
+                                type="text"
+                                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                                onClick={() => setCollapsed(!collapsed)}
+                                style={{
+                                    fontSize: '16px',
+                                    width: 64,
+                                    height: 64,
+                                }}
+                            />
+
+                            <div style={{ display: 'flex' }}>
+                                <div className="user" style={{ justifyItems: 'right' }}>
+                                    <Space>
+                                        <Avatar src={urlAvatar} />
+                                        <span>{accountRedux.user.fullName}</span>
+                                    </Space>
+                                </div>
+                                <Link to="/">
+                                    <div className="user">Back to home</div>
+                                </Link>
+                            </div>
+                        </div>
                     </Header>
                     <Content
                         style={{
@@ -93,10 +129,10 @@ const AdminHomePage = () => {
                             background: colorBgContainer,
                         }}
                     >
-                        {(window.location.pathname === '/admin/users' || window.location.pathname === '/admin') && (
-                            <UserTable />
-                        )}
+                        {window.location.pathname === '/admin' && <Dashboard />}
+                        {window.location.pathname === '/admin/users' && <UserTable />}
                         {window.location.pathname === '/admin/book' && <BookTable />}
+                        {window.location.pathname === '/admin/order' && <OrderTable />}
                     </Content>
                 </Layout>
             </Layout>

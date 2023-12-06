@@ -10,6 +10,9 @@ const UserModalEdit = ({ openModal, toggleModal, fetchUser, data }) => {
     const onFinish = async (values) => {
         const { _id, fullName, phone } = values;
         const res = await callUpdateUser(_id, fullName, phone);
+
+        console.log('Check callUpdateUser res: ', res);
+
         if (res && res.data) {
             message.success('Cập nhật user thành công');
             toggleModal();
