@@ -1,7 +1,9 @@
+import { Button, Result } from 'antd';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const AdminProtectedRoute = (props) => {
+    const navigate = useNavigate();
     const accountRedux = useSelector((state) => state.account);
     const checkRole = accountRedux.user.role;
     const isAdminRoute = window.location.pathname.startsWith('/admin');
@@ -10,12 +12,17 @@ const AdminProtectedRoute = (props) => {
             {isAdminRoute && checkRole === 'ADMIN' ? (
                 <>{props.children}</>
             ) : (
-                <div style={{ padding: '10px', textAlign: 'center', height: '500px' }}>
-                    <p style={{ marginTop: '150px', marginBottom: '10px' }}>Vui lòng đăng nhập tài khoản Admin</p>
-                    <Link to="/login" style={{ textDecoration: 'none' }}>
-                        Đăng Nhập
-                    </Link>
-                </div>
+                <Result
+                    status="403"
+                    title="403"
+                    subTitle="Sorry, you are not permitted, please login admin account."
+                    style={{ minHeight: '100vh', paddingTop: '100px' }}
+                    extra={
+                        <Button type="primary" onClick={() => navigate('/login')}>
+                            Login
+                        </Button>
+                    }
+                />
             )}
         </>
     );

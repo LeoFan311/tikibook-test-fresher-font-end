@@ -32,7 +32,7 @@ const Layout = () => {
                     status="403"
                     title="403"
                     subTitle="Sorry, you are not permitted, you need to login to access this page."
-                    style={{ minHeight: '100vh', paddingTop: '50px' }}
+                    style={{ minHeight: '100vh', paddingTop: '100px' }}
                     extra={[
                         <Button type="primary" onClick={() => navigate('/')}>
                             Back Home

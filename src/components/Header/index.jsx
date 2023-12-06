@@ -10,6 +10,7 @@ import HeaderCart from './headerCart';
 import AccountManage from '../AccountManage';
 
 const Header = () => {
+    const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const dispatch = useDispatch();
     const accountRedux = useSelector((state) => {
@@ -24,6 +25,7 @@ const Header = () => {
         const res = await callLogout();
         if (res?.statusCode === 201) {
             dispatch(doLogoutAction());
+            navigate('/login');
         }
     };
 
